@@ -1,12 +1,10 @@
 # config_db.py
-import utils
+import os
 
-os = utils.import_module('os')
-
+os.environ['DB_HOST']: 'localhost'
 
 # Set multiple environment variables at once
 os.environ.update({
-    'DB_HOST': 'localhost',
     'DB_USER': 'myuser',
     'DB_PASSWORD': 'mypassword',
     'DB_DATABASE': 'pwd_mngr'

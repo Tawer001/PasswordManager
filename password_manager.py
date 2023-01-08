@@ -1,12 +1,10 @@
 # password_manager.py
-import utils
-
-secrets = utils.import_module('secrets')
-random = utils.import_module('random')
-string = utils.import_module('string')
-install_db = utils.import_module('install_db')
-config_db = utils.import_module('config_db')
-connect_db = utils.import_module('connect_db')
+import secrets
+#import random
+import string
+import install_db
+import config_db
+#import connect_db
 
 
 # Install and start MariaDB
@@ -16,7 +14,7 @@ install_db.install_mariadb()
 config_db.set_env_variables()
 
 # Insert a password into the database
-connect_db.insert_password('mypassword')
+# connect_db.insert_password('mypassword')
 
 
 # Create a cryptographically secure RNG

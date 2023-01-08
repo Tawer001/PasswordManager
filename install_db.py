@@ -1,7 +1,5 @@
 # install_db.py
-import utils
-
-subprocess = utils.import_module('subprocess')
+import subprocess
 
 
 def install_mariadb():
