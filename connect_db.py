@@ -5,14 +5,20 @@ from sqlite3 import Error
 import config_db
 
 
-def create_connection():
+def create_connection(database):
     """ create a database connection to a database that resides
         in the memory
     """
     conn = None;
+    
     try:
-        conn = sqlite3.connect(':memory:')
-        print(sqlite3.version)
+        conn = sqlite3.connect(database))
+
+        print(f"SQLite3 version is {sqlite3.version}.")
+
+        while True:
+            break
+
     except Error as e:
         print(e)
     finally:
@@ -20,5 +26,5 @@ def create_connection():
             conn.close()
 
 
-if __name__ == '__main__':
-    create_connection()
+def main():
+    
