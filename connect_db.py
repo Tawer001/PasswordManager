@@ -15,7 +15,7 @@ def create_connection(db_file):
         return conn
 
     except Error as e:
-        print(e)
+        print("Error when connecting to database! \n", e)
 
     return conn
 
@@ -26,21 +26,11 @@ def create_table(conn, db_table):
         cur.execute(db_table)
 
     except Error as e:
-        print(e)
+        print("Error when creating a table! \n", e)
 
 
 def main():
-    '''db_dir = os.path.dirname(os.path.abspath(__file__))
-
-    if not os.path.exists(db_dir):
-        try:
-            os.makedirs(db_dir)
-        except OSError as e:
-            # directory already exists
-            pass'''
-
     db = "pm.db"
-
 
     tb_pwd_mngr = ''' CREATE TABLE IF NOT EXISTS password_manager (
                             pm_id integer PRIMARY KEY,
@@ -56,6 +46,10 @@ def main():
 
     # conn = create_connection(db_dir)
     conn = create_connection(db)
+
+    query = str(input("Type in your query from the following list [ SELECT = INSERT - UPDATE - DELETE]: "))
+    column = str(input("Please select the conlumn name you want to edit from the following list [ username - password ]: "))
+    row = str(input("Please select the id value you want to edit: "))
 
 
     if conn is not None:
