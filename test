@@ -31,14 +31,16 @@ def main():
         if selection == "1":
             conn = sqlite3.connect('newdb')
 
-            sql_table = ''' CREATE TABLE IF NOT EXISTS newtable (
+            tb_name = str(input("enter table name: "))
+
+            sql_table = f''' CREATE TABLE IF NOT EXISTS {tb_name} (
                         [table_id] INTERGER PRIMARY KEY,
                         [username] TEXT,
                         [password] TEXT) '''
 
             
 
-            ''' add_user = INSERT INTO newtable 
+            ''' add_user = fINSERT INTO {tb_name} 
                         (table_id, username, password) VALUES 
                         (1, 'tamer', '123'),
                         (2, 'ahmed', '555'),
@@ -49,20 +51,19 @@ def main():
             # user = create_user(conn, add_user)
 
             c = conn.cursor()
-            c.execute("SELECT * FROM newtable")
+            c.execute(f"SELECT * FROM {tb_name}")
             rows = c.fetchall()
             for row in rows:
-                print(row)
                 for cell in row:
                     print(cell)
 
-            user_input = int(input("enter a user id: "))
+            user_input = [input("enter a user id: ")]
 
-            c.execute("select newtable.* from newtable")
-            columns = c.fetchall()
+            c.execute(f"SELECT * FROM {tb_name}")
+            columns = [i[0] for i in c.description]
             print(f"your columns: {columns}")
 
-            c.execute(f"SELECT * FROM newtable where table_id={user_input}")
+            c.execute(f"SELECT * FROM {tb_name} where table_id={user_input}")
             your_selection = c.fetchall()
             print(f"you selected: {your_selection}")
             sel_id = ""
