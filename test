@@ -1,0 +1,83 @@
+import sqlite3
+from sqlite3 import Error
+
+
+def create_table(conn, sql_table):
+    try:
+        cur = conn.cursor()
+        cur.execute(sql_table)
+
+        conn.commit()
+
+    except Error as e:
+        print(e)
+        
+
+def create_user(conn, add_user):
+    try:
+        cur = conn.cursor()
+        cur.execute(add_user)
+
+        conn.commit()
+
+    except Error as e:
+        print(e)
+
+
+def main():
+    conn = None
+    while True:
+        selection = str(input("choose '0 to exit', '1 to connect': "))
+        if selection == "1":
+            conn = sqlite3.connect('newdb')
+
+            tb_name = str(input("enter table name: "))
+
+            sql_table = f''' CREATE TABLE IF NOT EXISTS {tb_name} (
+                        [table_id] INTERGER PRIMARY KEY,
+                        [username] TEXT,
+                        [password] TEXT) '''
+
+            
+
+            ''' add_user = fINSERT INTO {tb_name} 
+                        (table_id, username, password) VALUES 
+                        (1, 'tamer', '123'),
+                        (2, 'ahmed', '555'),
+                        (3, 'naser', '949') '''
+
+            table = create_table(conn, sql_table)
+
+            # user = create_user(conn, add_user)
+
+            c = conn.cursor()
+            c.execute(f"SELECT * FROM {tb_name}")
+            rows = c.fetchall()
+            for row in rows:
+                for cell in row:
+                    print(cell)
+
+            user_input = [input("enter a user id: ")]
+
+            c.execute(f"SELECT * FROM {tb_name}")
+            columns = [i[0] for i in c.description]
+            print(f"your columns: {columns}")
+
+            c.execute(f"SELECT * FROM {tb_name} where table_id={user_input}")
+            your_selection = c.fetchall()
+            print(f"you selected: {your_selection}")
+            sel_id = ""
+            username = ""
+            password = ""
+
+        elif selection == '0':
+            exit()
+
+        else:
+            print("error")
+            
+
+
+
+if __name__ == '__main__':
+    main()
